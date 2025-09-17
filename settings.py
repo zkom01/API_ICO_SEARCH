@@ -1,8 +1,9 @@
-width = 600
-height = 500
-modra = "#2f1b83"
-bila = "white"
+WIDTH = 540
+HEIGHT = 500
+BACKGROUND_COLOR = "#2f1b83"
+TEXT_COLOR = "white"
+BUTTON_COLOR = "#2f1b83"
 
-FONT_BIG = "Helvetica", 14, "bold"
-FONT_MIDDLE = "Helvetica", 12, "bold"
-FONT_SMALL = "Helvetica", 11, "bold"
+FONT_NADPIS = "Helvetica", 14, "bold"
+FONT_TEXT = "Verdana", 11
+FONT_BUTTONS = "Helvetica", 11, "bold"
