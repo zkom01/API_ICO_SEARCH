@@ -5,19 +5,41 @@ from api_ares import *
 
 # Funkce
 def hledej():
-    api_ares = ApiAres(vstup.get())
-    result_ico["text"] = api_ares.data["ico"]
-    result_dic["text"] = api_ares.data["dic"]
-    result_jmeno["text"] = api_ares.data["obchodniJmeno"]
-    result_adresa["text"] = f"{api_ares.data["sidlo"]["nazevUlice"]} {api_ares.data["sidlo"]["cisloDomovni"]}/{api_ares.data["sidlo"]["cisloOrientacni"]}"
-    result_adresa1["text"] = f"{api_ares.data["sidlo"]["nazevObce"]} - {api_ares.data["sidlo"]["nazevCastiObce"]}"
-    result_psc["text"] = api_ares.data["sidlo"]["psc"]
-    result_stat["text"] = api_ares.data["sidlo"]["nazevStatu"]
-    result_kod_stat["text"] = api_ares.data["sidlo"]["kodStatu"]
-    result_zalozeno["text"] = api_ares.data["datumVzniku"]
-    result_spis_znacka["text"] = api_ares.data["dalsiUdaje"][2]["spisovaZnacka"]
-    result_cznace["text"] = api_ares.data["czNace"]
-    result_aktualizace["text"] = api_ares.data["datumAktualizace"]
+    # Kontrola, zda IČO má přesně 8 znaků
+    if len(vstup.get()) != 8:
+        # Pokud ne, zobrazí chybovou hlášku
+        text_error_label["text"] = "Chyba: Zadejte přesně 8 číslic!"
+        text_error_label["fg"] = "red"
+        return  # Ukončí funkci, aby se dotaz neodeslal
+
+    # Pokud je délka správná, vymaže hlášku a pokračuje
+    text_error_label["text"] = ""
+
+    if vstup.get():
+        api_ares = ApiAres(vstup.get())
+        result_ico["text"] = api_ares.data["ico"]
+        result_dic["text"] = api_ares.data["dic"]
+        result_jmeno["text"] = api_ares.data["obchodniJmeno"]
+        result_adresa["text"] = f"{api_ares.data["sidlo"]["nazevUlice"]} {api_ares.data["sidlo"]["cisloDomovni"]}/{api_ares.data["sidlo"]["cisloOrientacni"]}"
+        result_adresa1["text"] = f"{api_ares.data["sidlo"]["nazevObce"]} - {api_ares.data["sidlo"]["nazevCastiObce"]}"
+        result_psc["text"] = api_ares.data["sidlo"]["psc"]
+        result_stat["text"] = api_ares.data["sidlo"]["nazevStatu"]
+        result_kod_stat["text"] = api_ares.data["sidlo"]["kodStatu"]
+        result_zalozeno["text"] = api_ares.data["datumVzniku"]
+        result_spis_znacka["text"] = api_ares.data["dalsiUdaje"][2]["spisovaZnacka"]
+        result_cznace["text"] = api_ares.data["czNace"]
+        result_aktualizace["text"] = api_ares.data["datumAktualizace"]
+
+# Validační funkce
+def validate_input(new_text):
+    """
+    Validuje vstup, aby to byly pouze číslice a maximálně 8 znaků.
+    """
+    if new_text.isdigit() or new_text == "":
+        # Povolí zadávání číslic a také prázdný řetězec (pro mazání)
+        if len(new_text) <= 8:
+            return True
+    return False
 
 # Rozměry obrazovky
 monitor = get_monitors()[0]
@@ -63,10 +85,16 @@ text_okna = Label(nadpis_frame,
                   )
 text_okna.grid(row=0, column=0, sticky="ew", pady=10)
 
-# Vstupní pole (input)
-vstup = Entry(input_frame, font=FONT_NADPIS)
+
+# Registrace validační funkce s Tkinterem
+validate_command = window.register(validate_input)
+# Vstupní pole s validací
+vstup = Entry(input_frame,
+              font=FONT_NADPIS,
+              validate="key",
+              validatecommand=(validate_command, '%P'))
 vstup.focus()
-vstup.insert(0, "28571533")
+# vstup.insert(0, "28571533")
 vstup.grid(row=0, column=0, sticky="ew", pady=5, padx=10)
 # Tlačítko
 tlacitko = Button(input_frame, text="Hledej", bg=BUTTON_COLOR, fg=TEXT_COLOR, command=hledej, width=25, font=FONT_BUTTONS)
@@ -132,6 +160,10 @@ text_aktualizace = Label(result_frame, text="Aktualizace:", bg=BACKGROUND_COLOR,
 text_aktualizace.grid(row=11, column=0, sticky="e", padx=10)
 result_aktualizace = Label(result_frame, bg=BACKGROUND_COLOR, fg=TEXT_COLOR, font=FONT_TEXT)
 result_aktualizace.grid(row=11, column=1, sticky="w")
+
+text_error_label = Label(result_frame, text="", bg=BACKGROUND_COLOR, fg=TEXT_COLOR, font=FONT_NADPIS)
+text_error_label.grid(row=5, column=1, sticky="e", padx=10)
+
 
 
 
