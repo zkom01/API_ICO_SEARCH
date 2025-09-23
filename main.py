@@ -11,8 +11,6 @@ def delete():
     text_error_label.configure(text="")
     vstup.delete(0, customtkinter.END)
 
-
-
 def hledej():
     """
     Spustí dotaz na API ARES na základě zadaného IČO.
@@ -44,10 +42,10 @@ def hledej():
         # Zpracování vnořených slovníků
         sidlo_data = api_ares.data.get("sidlo", {})
         results["adresa"].configure(
-            text=f"{sidlo_data.get('nazevUlice', '')} {sidlo_data.get('cisloDomovni', '')}/{sidlo_data.get('cisloOrientacni', '')}"
+            text=f"{sidlo_data.get('nazevUlice', '')} {sidlo_data.get('cisloDomovni', '')}/{sidlo_data.get('cisloOrientacni', 'N/A')}"
         )
         results["adresa1"].configure(
-            text=f"{sidlo_data.get('nazevObce', '')} - {sidlo_data.get('nazevCastiObce', '')}"
+            text=f"{sidlo_data.get('nazevObce', '')} - {sidlo_data.get('nazevCastiObce', 'N/A')}"
         )
         results["psc"].configure(text=sidlo_data.get("psc", "N/A"))
         results["stat"].configure(text=sidlo_data.get("nazevStatu", "N/A"))
@@ -101,6 +99,10 @@ def validate_input(new_text):
 
 # --- Nastavení a inicializace GUI ---
 
+customtkinter.set_default_color_theme("dark-blue")
+# customtkinter.set_default_color_theme("blue")
+# customtkinter.set_default_color_theme("green")
+
 # Získání rozměrů obrazovky pro vycentrování okna
 monitor = get_monitors()[0]
 screen_width = monitor.width
@@ -141,7 +143,7 @@ buton_frame.columnconfigure(0, weight=1) # sloupec s tlačítkem se roztáhne
 
 # Label pro hlavní nadpis
 text_okna = customtkinter.CTkLabel(nadpis_frame,
-                  text="Zadejte IČO a klikněte na Hledej.",font=FONT_NADPIS)
+                  text="Zadejte IČO a klikněte na Hledej.",font=FONT_NADPIS1)
 text_okna.grid(row=0, column=0, sticky="ew", pady=10)
 
 # Registrace validační funkce pro vstupní pole
