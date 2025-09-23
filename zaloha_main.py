@@ -26,8 +26,10 @@ def hledej():
     # Pokud je délka správná, vymaže hlášku a pokračuje
     text_error_label["text"] = ""
 
+    # Zajišťuje, že se dotaz odešle pouze, když je vstupní pole neprázdné
     try:
         api_ares = ApiAres(vstup.get())
+
         # Bezpečné získávání hodnot pomocí .get()
         results["ico"]["text"] = api_ares.data.get("ico", "N/A")
         results["dic"]["text"] = api_ares.data.get("dic", "N/A")
@@ -35,8 +37,12 @@ def hledej():
 
         # Zpracování vnořených slovníků
         sidlo_data = api_ares.data.get("sidlo", {})
-        results["adresa"]["text"] = f"{sidlo_data.get("nazevUlice", "")} {sidlo_data.get("cisloDomovni", "")}/{sidlo_data.get("cisloOrientacni", "")}"
-        results["adresa1"]["text"] = f"{sidlo_data.get("nazevObce", "")} - {sidlo_data.get("nazevCastiObce", "")}"
+        adresa_ulice = f"{sidlo_data.get("nazevUlice", "")} {sidlo_data.get("cisloDomovni", "")}/{sidlo_data.get("cisloOrientacni", "")}"
+        results["adresa"]["text"] = adresa_ulice.strip()
+
+        adresa_obec = f"{sidlo_data.get("nazevObce", "")} - {sidlo_data.get("nazevCastiObce", "")}"
+        results["adresa1"]["text"] = adresa_obec.strip()
+
         results["psc"]["text"] = sidlo_data.get("psc", "N/A")
         results["stat"]["text"] = sidlo_data.get("nazevStatu", "N/A")
         results["kod_stat"]["text"] = sidlo_data.get("kodStatu", "N/A")
@@ -48,13 +54,14 @@ def hledej():
         if len(dalsi_udaje) > 2:
             spisova_znacka = dalsi_udaje[2].get("spisovaZnacka", "N/A")
         results["spis_znacka"]["text"] = spisova_znacka
+
+        # Tato chyba je nyní také ošetřena pomocí .get()
         results["cznace"]["text"] = api_ares.data.get("czNace", "N/A")
         results["aktualizace"]["text"] = api_ares.data.get("datumAktualizace", "N/A")
 
-    except requests.exceptions.ConnectionError:
+    except ConnectionError:
         # Konkrétní chyba pro problémy se sítí
-        text_error_label["text"] = "Chyba připojení."
-        text_error_label["fg"] = "orange"
+        text_error_label["text"] = "Chyba připojení: Nelze se spojit s API ARES."
 
     except requests.exceptions.HTTPError as e:
         # Zde zachytíme specifickou chybu 404
@@ -178,7 +185,7 @@ for row, (text, key) in enumerate(labels):
 
 # Label pro zobrazení chybových hlášek
 text_error_label = Label(result_frame, bg=BACKGROUND_COLOR, fg="red", font=FONT_NADPIS)
-text_error_label.grid(row=5, column=1, sticky="w", padx=10)
+text_error_label.grid(row=5, column=1, sticky="e", padx=10)
 
 # Spodní tlačítko pro ukončení aplikace
 exit_buton = Button(buton_frame, text="EXIT", bg=BUTTON_COLOR, fg=TEXT_COLOR, width=25, command=window.destroy, font=FONT_BUTTONS)
@@ -252,4 +259,3 @@ window.mainloop()
 # text_aktualizace.grid(row=11, column=0, sticky="e", padx=10)
 # aktualizace = Label(result_frame, bg=BACKGROUND_COLOR, fg=TEXT_COLOR, font=FONT_TEXT)
 # aktualizace.grid(row=11, column=1, sticky="w")
-
