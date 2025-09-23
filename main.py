@@ -99,9 +99,13 @@ def validate_input(new_text):
 
 # --- Nastavení a inicializace GUI ---
 
-customtkinter.set_default_color_theme("dark-blue")
+# --- theme ----
+# customtkinter.set_default_color_theme("dark-blue")
 # customtkinter.set_default_color_theme("blue")
 # customtkinter.set_default_color_theme("green")
+customtkinter.set_default_color_theme("themes/eda.json")
+
+
 
 # Získání rozměrů obrazovky pro vycentrování okna
 monitor = get_monitors()[0]
