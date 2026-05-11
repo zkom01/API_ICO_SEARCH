@@ -1,3 +1,5 @@
+"""Globální nastavení GUI aplikace – rozměry okna a fonty."""
+
 WIDTH = 440
 HEIGHT = 470
 

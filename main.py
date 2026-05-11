@@ -1,10 +1,11 @@
 from screeninfo import get_monitors
 from settings import *
-from api_ares import *
+from api_ares import ApiAres
 import customtkinter
 
 # --- Funkce ---
 def delete():
+    """Vymaže obsah vstupního pole a všechny zobrazené výsledky."""
     # Vymaže předchozí výsledky zobrazené v labelech
     for (_, nazev) in labels:
         results[nazev].configure(text="")
@@ -77,7 +78,7 @@ def hledej():
         else:
             # Ošetření jiných chyb 4xx nebo 5xx
             delete()
-            text_error_label.configure(text ="fDošlo k HTTP chybě: {e}")
+            text_error_label.configure(text=f"Došlo k HTTP chybě: {e}")
 
 # --- Validační funkce ---
 
@@ -199,8 +200,8 @@ text_error_label = customtkinter.CTkLabel(result_frame, text="", text_color="red
 text_error_label.grid(row=5, column=1, sticky="w", padx=10)
 
 # Spodní tlačítko pro ukončení aplikace
-exit_buton = customtkinter.CTkButton(buton_frame, text="VYMAZAT", width=200, command=delete, font=FONT_BUTTONS)
-exit_buton.grid(row=0, column=0, sticky="es", padx=10, pady=10)
+delete_buton = customtkinter.CTkButton(buton_frame, text="VYMAZAT", width=200, command=delete, font=FONT_BUTTONS)
+delete_buton.grid(row=0, column=0, sticky="es", padx=10, pady=10)
 
 exit_buton = customtkinter.CTkButton(buton_frame, text="EXIT", width=200, command=window.destroy, font=FONT_BUTTONS)
 exit_buton.grid(row=0, column=1, sticky="es", padx=10, pady=10)

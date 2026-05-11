@@ -5,13 +5,23 @@
 import requests
 
 class ApiAres:
+   """
+    Načte data o ekonomickém subjektu z API ARES podle zadaného IČO.
+
+    Atributy:
+        ico (str): IČO hledaného subjektu.
+        data (dict): JSON odpověď z ARES API.
+
+    Raises:
+        requests.exceptions.HTTPError: Pokud server vrátí chybový stavový kód.
+    """
    def __init__(self, ico):
-    self.ico = ico
-    response = requests.get(f"https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{self.ico}")
-    # print(response)
-    # print(response.status_code)
-    response.raise_for_status() # v případě chyby , chybu vypíše
-    self.data = response.json()
+      self.ico = ico
+      response = requests.get(f"https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{self.ico}")
+      # print(response)
+      # print(response.status_code)
+      response.raise_for_status() # v případě chyby , chybu vypíše
+      self.data = response.json()
 
 
 
