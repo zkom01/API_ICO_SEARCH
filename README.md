@@ -20,6 +20,7 @@ Cílem projektu je zjednodušit práci s veřejnými daty a poskytnout přehledn
 ## 🌐 Použité API
 
 Aplikace využívá oficiální REST API systému ARES:
+
 https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ico}
 
 ---
@@ -36,9 +37,11 @@ https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ico}
 ## ▶️ Spuštění
 
 1. Nainstalujte potřebné knihovny:
+
 pip install customtkinter requests screeninfo
 
 2. Spusťte aplikaci:
+
 python main.py
 
 ---
@@ -46,17 +49,25 @@ python main.py
 ## 🗂️ Struktura projektu
 
 API_ARES/
+
 ├── main.py         # GUI a hlavní logika aplikace
+
 ├── api_ares.py     # Komunikace s ARES API
+
 ├── settings.py     # Konfigurace aplikace a konstanty
+
 ├── dog.ico         # Ikona aplikace
+
 └── themes/         # Barevné motivy GUI (JSON)
+
 
 ---
 
 ## 🎨 UI a témata
 
-Aplikace podporuje custom témata. Výchozí nastavení využívá motiv: themes/eda.json.
+Aplikace podporuje custom témata. 
+
+Výchozí nastavení využívá motiv: themes/eda.json.
 
 ---
 
