@@ -21,7 +21,7 @@ Cílem projektu je zjednodušit práci s veřejnými daty a poskytnout přehledn
 
 Aplikace využívá oficiální REST API systému ARES:
 
-https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ico}
+https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27082440
 
 ---
 
