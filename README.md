@@ -47,19 +47,14 @@ python main.py
 ---
 
 ## 🗂️ Struktura projektu
-
+```
 API_ARES/
-
 ├── main.py         # GUI a hlavní logika aplikace
-
 ├── api_ares.py     # Komunikace s ARES API
-
 ├── settings.py     # Konfigurace aplikace a konstanty
-
 ├── dog.ico         # Ikona aplikace
-
 └── themes/         # Barevné motivy GUI (JSON)
-
+```
 
 ---
 
