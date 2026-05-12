@@ -41,9 +41,9 @@ https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ico}
 pip install customtkinter requests screeninfo
 ```
 2. Spusťte aplikaci:
-
+``` bash
 python main.py
-
+```
 ---
 
 ## 🗂️ Struktura projektu
