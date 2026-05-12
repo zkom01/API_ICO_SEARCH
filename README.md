@@ -37,9 +37,9 @@ https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ico}
 ## ▶️ Spuštění
 
 1. Nainstalujte potřebné knihovny:
-
+``` bash
 pip install customtkinter requests screeninfo
-
+```
 2. Spusťte aplikaci:
 
 python main.py
